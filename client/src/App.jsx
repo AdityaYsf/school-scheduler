@@ -1,121 +1,121 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
-import './App.css'
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import Layout from "./Layout/Layout";
+import Home from "./pages/Home";
 
-function App() {
-  const [count, setCount] = useState(0)
-
-  return (
-    <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
-        </div>
-        <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.jsx</code> and save to test <code>HMR</code>
-          </p>
-        </div>
-        <button
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
-      </section>
-
-      <div className="ticks"></div>
-
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
-
-      <div className="ticks"></div>
-      <section id="spacer"></section>
-    </>
-  )
+// Untuk App yang belum selesai untuk menampilkan halaman sementara
+function ComingSoon({ page }) {
+	return (
+		<div className="flex flex-col items-center justify-center h-full gap-3 text-[#9ca3af]">
+			<div className="w-16 h-16 rounded-2xl bg-[rgba(108,99,255,0.08)] flex items-center justify-center">
+				<svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+					<rect
+						x="4"
+						y="4"
+						width="24"
+						height="4"
+						rx="2"
+						fill="#6C63FF"
+						opacity="0.3"
+					/>
+					<rect
+						x="4"
+						y="13"
+						width="16"
+						height="4"
+						rx="2"
+						fill="#6C63FF"
+						opacity="0.5"
+					/>
+					<rect
+						x="4"
+						y="22"
+						width="20"
+						height="4"
+						rx="2"
+						fill="#6C63FF"
+						opacity="0.7"
+					/>
+				</svg>
+			</div>
+			<p className="text-sm font-semibold text-[#08060d]">Halaman {page}</p>
+			<p className="text-xs text-[#c4c0ff]">Sedang dalam pengembangan...</p>
+		</div>
+	);
 }
 
-export default App
+// Route config
+const ROUTES = [
+	{ path: "/", element: <Navigate to="/home" replace /> },
+	{ path: "/home", element: <Home page="Home" />, active: "Home" },
+	{
+		path: "/students",
+		element: <ComingSoon page="Students" />,
+		active: "Students",
+	},
+	{
+		path: "/teachers",
+		element: <ComingSoon page="Teachers" />,
+		active: "Teachers",
+	},
+	{
+		path: "/courses",
+		element: <ComingSoon page="Courses" />,
+		active: "Courses",
+	},
+	{
+		path: "/live",
+		element: <ComingSoon page="Live Class" />,
+		active: "Live Class",
+	},
+	{
+		path: "/attendance",
+		element: <ComingSoon page="Attendance" />,
+		active: "Attendance",
+	},
+	{
+		path: "/payments",
+		element: <ComingSoon page="Payments" />,
+		active: "Payments",
+	},
+	{
+		path: "/library",
+		element: <ComingSoon page="Library" />,
+		active: "Library",
+	},
+	{
+		path: "/reports",
+		element: <ComingSoon page="Reports" />,
+		active: "Reports",
+	},
+];
+
+export default function App() {
+	return (
+		<BrowserRouter>
+			<Routes>
+				{ROUTES.map(({ path, element, active }) => (
+					<Route
+						key={path}
+						path={path}
+						element={
+							active ? <Layout activeItem={active}>{element}</Layout> : element
+						}
+					/>
+				))}
+
+				{/* 404 fallback */}
+				<Route
+					path="*"
+					element={
+						<Layout activeItem="Home">
+							<div className="flex flex-col items-center justify-center h-full gap-3 text-[#9ca3af]">
+								<p className="text-6xl font-bold text-[#E5E7EB]">404</p>
+								<p className="text-sm font-medium">Halaman tidak ditemukan</p>
+							</div>
+						</Layout>
+					}
+				/>
+			</Routes>
+		</BrowserRouter>
+	);
+}
