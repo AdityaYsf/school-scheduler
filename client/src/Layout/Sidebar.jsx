@@ -19,12 +19,8 @@ const NAV_ITEMS = [
   { icon: Home,          label: "Home",       path: "/home" },
   { icon: Users,         label: "Class",   path: "/class" },
   { icon: GraduationCap, label: "Teachers",   path: "/teachers" },
-  { icon: BookOpen,      label: "Courses",    path: "/courses" },
-  { icon: Video,         label: "Live Class", path: "/live" },
-  { icon: ClipboardList, label: "Attendance", path: "/attendance" },
-  { icon: CreditCard,    label: "Payments",   path: "/payments" },
-  { icon: Library,       label: "Library",    path: "/library" },
-  { icon: BarChart3,     label: "Reports",    path: "/reports" },
+  { icon: BookOpen,      label: "Mata Pelajaran",    path: "/mapel" },
+  { icon: ClipboardList, label: "Generate Jadwal", path: "/generate" },
 ];
 
 export default function Sidebar() {
@@ -85,32 +81,6 @@ export default function Sidebar() {
           );
         })}
       </nav>
-
-      {/* Upgrade Banner */}
-      <div className="px-3 pb-5">
-        <div
-          className="relative overflow-hidden rounded-2xl p-4 text-white"
-          style={{
-            background: "linear-gradient(135deg, #6C63FF, #8A7BFF)",
-            boxShadow: "0 10px 30px rgba(108,99,255,0.3)",
-          }}
-        >
-          <div className="absolute -top-4 -right-4 w-16 h-16 rounded-full bg-white/10" />
-          <div className="absolute -bottom-3 -left-3 w-12 h-12 rounded-full bg-white/10" />
-          <div className="relative z-10 flex flex-col items-center text-center gap-2">
-            <div className="flex items-center justify-center w-8 h-8 rounded-full bg-white/20 mb-1">
-              <Zap size={16} fill="white" className="text-white" />
-            </div>
-            <p className="text-[13px] font-medium leading-snug opacity-95">
-              Upgrade to <span className="font-bold text-[#DDD6FE]">Pro</span> for
-              <br />more facilities
-            </p>
-            <button className="mt-1 flex items-center gap-1.5 px-4 py-1.5 bg-white rounded-xl text-[#6C63FF] text-[13px] font-semibold hover:scale-[1.02] transition-all duration-200">
-              Upgrade <ChevronRight size={13} />
-            </button>
-          </div>
-        </div>
-      </div>
     </aside>
   );
 }
