@@ -60,19 +60,14 @@ const ROUTES = [
 		active: "Teachers",
 	},
 	{
-		path: "/courses",
-		element: <ComingSoon page="Courses" />,
-		active: "Courses",
+		path: "/mapel",
+		element: <ComingSoon page="Mata Pelajaran" />,
+		active: "Mata Pelajaran",
 	},
 	{
-		path: "/live",
-		element: <ComingSoon page="Live Class" />,
-		active: "Live Class",
-	},
-	{
-		path: "/attendance",
-		element: <ComingSoon page="Attendance" />,
-		active: "Attendance",
+		path: "/generate",
+		element: <ComingSoon page="Generate Jadwal" />,
+		active: "Generate Jadwal",
 	},
 	{
 		path: "/payments",
