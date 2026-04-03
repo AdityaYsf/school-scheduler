@@ -19,7 +19,7 @@ const NAV_ITEMS = [
   { icon: Home,          label: "Home",       path: "/home" },
   { icon: Users,         label: "Class",   path: "/class" },
   { icon: GraduationCap, label: "Teachers",   path: "/teachers" },
-  { icon: BookOpen,      label: "Mata Pelajaran",    path: "/mapel" },
+  { icon: BookOpen,      label: "Mata Pelajaran",    path: "/subjects" },
   { icon: ClipboardList, label: "Generate Jadwal", path: "/generate" },
 ];
 
