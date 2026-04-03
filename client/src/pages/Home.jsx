@@ -20,7 +20,6 @@ import {
 } from "lucide-react";
 import { useClasses } from "@/hooks/useClasses";
 import { useTeachers } from "@/hooks/useTeachers";
-// import { useTeacherSchedule } from "@/hooks/useTeacherSchedule";
 
 // ── Dummy Data ───────────────────────────────────────────────
 
@@ -63,98 +62,6 @@ const INITIAL_STATS = [
   },
 ];
 
-const ANNOUNCEMENTS = [
-  {
-    id: 1,
-    title: "Ujian Akhir Semester",
-    desc: "UAS dimulai 15 Juli 2025. Semua kelas diliburkan.",
-    priority: "high",
-    time: "2 jam lalu",
-  },
-  {
-    id: 2,
-    title: "Pembaruan Sistem",
-    desc: "Maintenance terjadwal Minggu 06.00–08.00 WIB.",
-    priority: "medium",
-    time: "5 jam lalu",
-  },
-  {
-    id: 3,
-    title: "Pendaftaran Kursus Baru",
-    desc: "Kursus Data Science batch 3 resmi dibuka.",
-    priority: "info",
-    time: "1 hari lalu",
-  },
-  {
-    id: 4,
-    title: "Pembayaran SPP",
-    desc: "Tenggat pembayaran SPP bulan Juli: 10 Juli 2025.",
-    priority: "high",
-    time: "1 hari lalu",
-  },
-];
-
-const ATTENDANCE = [
-  { day: "Sen", value: 87, total: 100 },
-  { day: "Sel", value: 92, total: 100 },
-  { day: "Rab", value: 78, total: 100 },
-  { day: "Kam", value: 95, total: 100 },
-  { day: "Jum", value: 88, total: 100 },
-  { day: "Sab", value: 65, total: 100 },
-  { day: "Min", value: 45, total: 100 },
-];
-
-const ACTIVITIES = [
-  {
-    id: 1,
-    icon: UserPlus,
-    color: "#6C63FF",
-    bg: "rgba(108,99,255,0.08)",
-    text: "Siswa baru **Budi Santoso** mendaftar ke kursus Mathematics",
-    time: "5 menit lalu",
-  },
-  {
-    id: 2,
-    icon: BookPlus,
-    color: "#34D399",
-    bg: "rgba(52,211,153,0.08)",
-    text: "Kursus baru **Data Science Batch 3** berhasil ditambahkan",
-    time: "32 menit lalu",
-  },
-  {
-    id: 3,
-    icon: CreditCard,
-    color: "#FBBF24",
-    bg: "rgba(251,191,36,0.08)",
-    text: "Pembayaran SPP dari **Dewi Lestari** telah dikonfirmasi",
-    time: "1 jam lalu",
-  },
-  {
-    id: 4,
-    icon: UserPlus,
-    color: "#6C63FF",
-    bg: "rgba(108,99,255,0.08)",
-    text: "Guru baru **Prof. Ahmad Fauzi** berhasil ditambahkan",
-    time: "2 jam lalu",
-  },
-  {
-    id: 5,
-    icon: CalendarCheck,
-    color: "#60A5FA",
-    bg: "rgba(96,165,250,0.08)",
-    text: "Jadwal kelas **Physics** diperbarui untuk minggu depan",
-    time: "3 jam lalu",
-  },
-  {
-    id: 6,
-    icon: CreditCard,
-    color: "#FBBF24",
-    bg: "rgba(251,191,36,0.08)",
-    text: "Pembayaran SPP dari **Rizky Pratama** telah dikonfirmasi",
-    time: "4 jam lalu",
-  },
-];
-
 // ── Sub Components ───────────────────────────────────────────
 
 function StatCard({ stat, index }) {
@@ -194,7 +101,17 @@ function StatCard({ stat, index }) {
 }
 
 function AttendanceChart() {
-  const max = Math.max(...ATTENDANCE.map((d) => d.value));
+  // Generate attendance data for this week
+  const days = ["Sen", "Sel", "Rab", "Kam", "Jum", "Sab", "Min"];
+  const attendanceData = days.map(() => ({
+    day: days[Math.floor(Math.random() * days.length)],
+    value: Math.floor(Math.random() * (95 - 65 + 1)) + 65,
+    total: 100,
+  }));
+  
+  const max = Math.max(...attendanceData.map((d) => d.value));
+  const today = new Date().getDay(); // 0 = Sunday, 1 = Monday
+  
   return (
     <div className="bg-white rounded-2xl border border-[#E5E7EB] p-5 flex flex-col gap-4 h-full">
       <div className="flex items-center justify-between">
@@ -210,11 +127,11 @@ function AttendanceChart() {
 
       {/* Chart */}
       <div className="flex items-end gap-2.5 flex-1 pt-2">
-        {ATTENDANCE.map((d, i) => {
+        {attendanceData.map((d, i) => {
           const heightPct = (d.value / max) * 100;
-          const isToday = i === 1; // Selasa = hari ini (dummy)
+          const isToday = i === (today === 0 ? 6 : today - 1);
           return (
-            <div key={d.day} className="flex flex-col items-center gap-2 flex-1 group">
+            <div key={d.day + i} className="flex flex-col items-center gap-2 flex-1 group">
               <div className="relative flex flex-col items-center w-full">
                 {/* Tooltip */}
                 <span className="absolute -top-7 opacity-0 group-hover:opacity-100 transition-opacity duration-200 text-[11px] font-semibold text-[#6C63FF] bg-[rgba(108,99,255,0.08)] px-2 py-0.5 rounded-md whitespace-nowrap">
@@ -251,7 +168,7 @@ function AttendanceChart() {
       <div className="flex items-center justify-between pt-3 border-t border-[#F1F5F9]">
         <span className="text-[12px] text-[#9ca3af]">Rata-rata minggu ini</span>
         <span className="text-[14px] font-bold text-[#6C63FF]">
-          {Math.round(ATTENDANCE.reduce((s, d) => s + d.value, 0) / ATTENDANCE.length)}%
+          {Math.round(attendanceData.reduce((s, d) => s + d.value, 0) / attendanceData.length)}%
         </span>
       </div>
     </div>
@@ -265,6 +182,13 @@ const PRIORITY_CONFIG = {
 };
 
 function AnnouncementCard() {
+  // Generate sample announcements
+  const announcements = [
+    { id: 1, title: "Ujian Akhir Semester", desc: "UAS dimulai 15 Juli 2025. Semua kelas diliburkan.", priority: "high", time: "2 jam lalu" },
+    { id: 2, title: "Pembaruan Sistem", desc: "Maintenance terjadwal Minggu 06.00–08.00 WIB.", priority: "medium", time: "5 jam lalu" },
+    { id: 3, title: "Pengumuman Penting", desc: "Perubahan jadwal pembelajaran untuk minggu depan.", priority: "info", time: "1 hari lalu" },
+  ];
+
   return (
     <div className="bg-white rounded-2xl border border-[#E5E7EB] p-5 flex flex-col gap-4 h-full">
       <div className="flex items-center justify-between">
@@ -278,7 +202,7 @@ function AnnouncementCard() {
       </div>
 
       <div className="flex flex-col gap-2.5 flex-1 overflow-y-auto">
-        {ANNOUNCEMENTS.map((a) => {
+        {announcements.map((a) => {
           const cfg = PRIORITY_CONFIG[a.priority];
           return (
             <div

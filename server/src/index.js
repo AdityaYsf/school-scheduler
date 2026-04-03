@@ -5,8 +5,7 @@ import dotenv from "dotenv";
 import teacherRoutes from "./routes/teachers.js";
 import classRoutes from "./routes/classes.js";
 import scheduleRoutes from "./routes/schedules.js";
-// import classroomRoutes from "./routes/classrooms.js";
-// import subjectRoutes from "./routes/subjects.js";
+import subjectRoutes from "./routes/mapel.js";
 
 dotenv.config();
 
@@ -26,8 +25,7 @@ app.use(express.json());
 app.use("/api/teachers", teacherRoutes);
 app.use("/api/classes", classRoutes);
 app.use("/api/schedules", scheduleRoutes);
-// app.use("/api/classrooms", classroomRoutes);
-// app.use("/api/subjects", subjectRoutes);
+app.use("/api/subjects", subjectRoutes);
 
 // ── Health check ─────────────────────────────────────────────
 app.get("/api/health", (req, res) => {
