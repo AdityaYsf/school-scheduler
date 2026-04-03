@@ -4,6 +4,7 @@ import Home from "./pages/Home";
 import Class from "./pages/Class";
 import Teacher from "./pages/Teacher";
 import Schedule from "./pages/Schedule";
+import Mapel from "./pages/Mapel";
 
 // Untuk App yang belum selesai dapat menampilkan halaman sementara
 function ComingSoon({ page }) {
@@ -61,8 +62,8 @@ const ROUTES = [
 		active: "Teachers",
 	},
 	{
-		path: "/mapel",
-		element: <ComingSoon page="Mata Pelajaran" />,
+		path: "/subjects",
+		element: <Mapel page="Mata Pelajaran" />,
 		active: "Mata Pelajaran",
 	},
 	{
