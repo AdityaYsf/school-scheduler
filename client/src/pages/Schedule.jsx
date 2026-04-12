@@ -3,7 +3,7 @@ import {
   Plus, Search, Edit2, Trash2, X, ChevronDown,
   BookOpen, MapPin, Clock, Users, AlertTriangle,
   Download, Calendar, Zap, CheckCircle2,
-  MoreVertical, GraduationCap, RefreshCw,
+  MoreVertical, GraduationCap, RefreshCw, Trash,
 } from "lucide-react";
 
 // ─── Dummy Data ───────────────────────────────────────────────────────────────
@@ -149,7 +149,7 @@ function DetailModal({ cls, onClose }) {
 }
 
 // ─── Schedule Tab ─────────────────────────────────────────────────────────────
-function ScheduleTab({ schedule, onRegenerate }) {
+function ScheduleTab({ schedule, onRegenerate, onReset }) {
   const [filterDay, setFilterDay] = useState("Semua");
   const [filterRoom, setFilterRoom] = useState("Semua");
   const [search, setSearch] = useState("");
@@ -218,6 +218,12 @@ function ScheduleTab({ schedule, onRegenerate }) {
             className="flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-medium text-[#6b6375] border border-[#E5E7EB] hover:bg-[#F8FAFC] transition-colors"
           >
             <RefreshCw size={13} /> Generate Ulang
+          </button>
+          <button
+            onClick={onReset}
+            className="flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-medium text-[#FF4757] border border-red-200 hover:bg-red-50 transition-colors"
+          >
+            <Trash size={13} /> Reset Jadwal
           </button>
           <button
             onClick={handleExport}
@@ -332,6 +338,10 @@ export default function Schedule() {
     setTab("schedule");
   };
 
+  const handleReset = () => {
+    setSchedule([]);
+  };
+
   const handleAdd    = (form) => setClasses((p) => [...p, { ...form, id: Date.now() }]);
   const handleEdit   = (form) => setClasses((p) => p.map((c) => c.id === selected.id ? { ...c, ...form } : c));
   const handleDelete = (id)   => setClasses((p) => p.filter((c) => c.id !== id));
@@ -373,7 +383,7 @@ export default function Schedule() {
       {/* ── Body ── */}
       <div className="flex-1 overflow-y-auto px-8 py-6">
        
-          <ScheduleTab schedule={schedule} onRegenerate={handleGenerate} />
+          <ScheduleTab schedule={schedule} onRegenerate={handleGenerate} onReset={handleReset} />
     
       </div>
 
