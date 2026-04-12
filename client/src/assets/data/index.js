@@ -149,5 +149,12 @@ export const TIME_SLOTS = [
   "16:00",
 ];
 
+export const AVATAR_COLORS = [
+  { bg: "bg-[rgba(108,99,255,0.12)]", text: "text-[#534AB7]" },
+  { bg: "bg-[rgba(29,158,117,0.12)]", text: "text-[#0F6E56]" },
+  { bg: "bg-[rgba(216,90,48,0.12)]",  text: "text-[#993C1D]" },
+  { bg: "bg-[rgba(212,83,126,0.12)]", text: "text-[#993556]" },
+];
+
 export { default as ROOMS } from "./roomData";
 export { default as SUBJECT_COLORS } from "./colorData";
